@@ -1,5 +1,10 @@
 package core;
 
+import DataClasses.Bill;
+import DataClasses.Employee;
+import DataClasses.Flat;
+import DataClasses.Person;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +32,6 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void addEmployee(String name, String surname, String title, Integer age)
-    {
-        //todo
-
     }
 
     //todo
@@ -70,6 +69,109 @@ public class DatabaseHandler {
     *
     *
     * */
+
+    public  static void addEmployee(String name, String surname, Integer age, String title)
+    {
+        String query = "insert into "+Employee.tableName+" ("+Employee.nameField+", "+Employee.surnameField+", "+Employee.ageField+", "+Employee.titleField+") values (?, ?, ?, ?)";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,surname);
+            preparedStatement.setInt(3,age);
+            preparedStatement.setString(4,title);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void modifyEmployee(Integer id, String name, String surname, Integer age, String title)
+    {
+        String query = "Update "+ Employee.tableName+" set "+Employee.nameField+" = ?, "+Employee.surnameField+" = ?, "+Employee.ageField+" = ?, "+Employee.titleField+" = ? where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,surname);
+            preparedStatement.setInt(3,age);
+            preparedStatement.setString(4,title);
+            preparedStatement.setInt(5,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteEmployee(Integer id)
+    {
+        String query = "delete from "+ Employee.tableName+" where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public  static void addPerson( String name, String surname, String sex, Integer age,Integer flatNumber, Integer flatId)
+    {
+        String query = "insert into "+Person.tableName+" ("+Person.nameField+", "+Person.surnameField+", "+Person.sexField+", "+Person.ageField+", "+Person.flatNumberField+", "+Person.flatIdField+") values (?, ?, ?, ?, ?, ?)";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,surname);
+            preparedStatement.setString(3,sex);
+            preparedStatement.setInt(4,age);
+            preparedStatement.setInt(5,flatNumber);
+            preparedStatement.setInt(6,flatId);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void modifyPerson(Integer id, String name, String surname,String sex, Integer age, Integer flatNumber, Integer flatId)
+    {
+        String query = "Update "+ Person.tableName+" set "+Person.nameField+" = ?, "+Person.surnameField+" = ?, "+Person.sexField+" = ?, "+Person.ageField+" = ?, "+Person.flatNumberField+" = ?, "+Person.flatIdField+" = ?  where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,surname);
+            preparedStatement.setString(3,sex);
+            preparedStatement.setInt(4,age);
+            preparedStatement.setInt(5,flatNumber);
+            preparedStatement.setInt(6,flatId);
+            preparedStatement.setInt(7,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deletePerson(Integer id)
+    {
+        String query = "delete from "+ Person.tableName+" where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public static List<Employee> getAllEmployeesData()
     {
@@ -142,7 +244,7 @@ public class DatabaseHandler {
         return null;
     }
 
-    public static List<Person> getAllPerson()
+    public static List<Person> getAllPersonData()
     {
         String select = "SELECT * FROM "+Person.tableName;
         try {
@@ -159,7 +261,7 @@ public class DatabaseHandler {
                 String surname = resultSet.getString(Person.surnameField);
                 String sex = resultSet.getString(Person.sexField);
 
-                Person newPerson=new Person(age,name,surname,sex,flatId,flatNumber);
+                Person newPerson=new Person(personId, age,name,surname,sex,flatId,flatNumber);
                 list.add(newPerson);
             }
             return list;
@@ -187,7 +289,7 @@ public class DatabaseHandler {
                 String surname = resultSet.getString(Person.surnameField);
                 String sex = resultSet.getString(Person.sexField);
 
-                Person newPerson=new Person(age,name,surname,sex,flatId,flatNumber);
+                Person newPerson=new Person(personId, age,name,surname,sex,flatId,flatNumber);
                 list.add(newPerson);
             }
             return list;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="926.0" prefWidth="1222.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BlokiController">
+    <children>
+        <Button fx:id="pracownicyButton" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#onPracownicyButton" prefHeight="37.0" prefWidth="79.0" text="Pracownicy" />
+        <Button fx:id="mieszkancyButton" layoutX="104.0" layoutY="18.0" mnemonicParsing="false" onAction="#onMieszkancyButton" prefHeight="37.0" prefWidth="79.0" text="Mieszkańcy" />
+        <Button fx:id="GBDButton" layoutX="193.0" layoutY="18.0" mnemonicParsing="false" onAction="#onGBDButton" prefHeight="37.0" prefWidth="156.0" text="Główna Baza Danych" />
+    </children>
+</AnchorPane>
