@@ -1,9 +1,6 @@
 package core;
 
-import DataClasses.Bill;
-import DataClasses.Employee;
-import DataClasses.Flat;
-import DataClasses.Person;
+import DataClasses.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -172,6 +169,241 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+
+    public  static void addBlock(Integer flatNumber)
+    {
+        String query = "insert into "+Block.tableName+" ("+Block.numberField+") values (?)";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,flatNumber);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void modifyBlock(Integer id, Integer flatNumber)
+    {
+        String query = "Update "+ Block.tableName+" set "+Block.numberField+" = ?  where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,flatNumber);
+            preparedStatement.setInt(2,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteBlock(Integer id)
+    {
+        String query = "delete from "+ Block.tableName+" where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<Block> getAllBlocksData()
+    {
+        String select = "SELECT * FROM "+Block.tableName;
+        try {
+            PreparedStatement prST = getDbConnection().prepareStatement(select);
+            ResultSet resultSet = prST.executeQuery();
+            List<Block> list = new ArrayList<>();
+
+            while (resultSet.next()) {
+                int blockId = ((ResultSet) resultSet).getInt(Block.idField);
+                int number = resultSet.getInt(Block.numberField);
+                int occupantsNumber=resultSet.getInt(Block.occupantsNumberField);
+                double averageAge=resultSet.getDouble(Block.averageAgeField);
+
+                List<Flat> flatsList=DatabaseHandler.getFlatsByBlockId(blockId);
+
+                Block blc = new Block(blockId,flatsList,number,occupantsNumber,averageAge);
+                list.add(blc);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void callBlockStatisticsProcedure()
+    {
+        try (CallableStatement callableStatement = getDbConnection().prepareCall("{call ObliczStatystykiBloku}")) {
+            callableStatement.execute();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    public  static void addBill(Integer flatId, Integer flatNumber, Boolean paid, Double water, Double gas, Double electricity)
+    {
+        String query = "insert into "+Bill.tableName+" ("+Bill.flatIdField+", "+Bill.flatNumberField+", "+Bill.paidField+", "+Bill.waterField+", "+Bill.gasField+", "+Bill.electricityField+") values (?, ?, ?, ?, ?, ?)";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,flatId);
+            preparedStatement.setInt(2,flatNumber);
+            preparedStatement.setBoolean(3,paid);
+            preparedStatement.setDouble(4,water);
+            preparedStatement.setDouble(5,gas);
+            preparedStatement.setDouble(6,electricity);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void modifyBill(Integer id, Integer flatId, Integer flatNumber, Boolean paid, Double water, Double gas, Double electricity)
+    {
+        String query = "Update "+ Bill.tableName+" set "+Bill.flatIdField+" = ?, "+Bill.flatNumberField+" = ?, "+Bill.paidField+" = ?, "+Bill.waterField+" = ?, "+Bill.gasField+" = ?, "+Bill.electricityField+" = ?  where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,flatId);
+            preparedStatement.setInt(2,flatNumber);
+            preparedStatement.setBoolean(3,paid);
+            preparedStatement.setDouble(4,water);
+            preparedStatement.setDouble(5,gas);
+            preparedStatement.setDouble(6,electricity);
+            preparedStatement.setInt(7,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteBill(Integer id)
+    {
+        String query = "delete from "+ Bill.tableName+" where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static List<Bill> getAllBillData()
+    {
+        String select = "SELECT * FROM "+Bill.tableName;
+        try {
+            PreparedStatement prST = getDbConnection().prepareStatement(select);
+            ResultSet resultSet = prST.executeQuery();
+            List<Bill> list = new ArrayList<>();
+
+            while (resultSet.next()) {
+                int billId = ((ResultSet) resultSet).getInt(Bill.idField);
+                int flatId = resultSet.getInt(Bill.flatIdField);
+                int flatNumber = resultSet.getInt(Bill.flatNumberField);
+                boolean paid = resultSet.getBoolean(Bill.paidField);
+                Double water = resultSet.getDouble(Bill.waterField);
+                Double gas = resultSet.getDouble(Bill.gasField);
+                Double electricity = resultSet.getDouble(Bill.electricityField);
+
+                Bill newBill=new Bill(gas,water,electricity,billId,flatId,flatNumber,paid);
+                list.add(newBill);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public  static void addFlat(Integer flatNumber, Integer blockId)
+    {
+        String query = "insert into "+Flat.tableName+" ("+Flat.numberField+", "+Flat.blockIdField+") values (?,?)";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,flatNumber);
+            preparedStatement.setInt(2,blockId);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void modifyFlat(Integer id, Integer flatNumber, Integer blockId)
+    {
+        String query = "Update "+ Flat.tableName+" set "+Flat.numberField+" = ?, "+Flat.blockIdField+" = ? where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,flatNumber);
+            preparedStatement.setInt(2,blockId);
+            preparedStatement.setInt(3,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteFlat(Integer id)
+    {
+        String query = "delete from "+ Flat.tableName+" where id = ?";
+
+        try(PreparedStatement preparedStatement = getDbConnection().prepareStatement(query)){
+            preparedStatement.setInt(1,id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static List<Flat> getAllFlatsData()
+    {
+        String select = "SELECT * FROM "+Flat.tableName;
+        try {
+            PreparedStatement prST = getDbConnection().prepareStatement(select);
+            ResultSet resultSet = prST.executeQuery();
+            List<Flat> list = new ArrayList<>();
+
+            while (resultSet.next()) {
+                int flatId = ((ResultSet) resultSet).getInt(Flat.idField);
+                int flatNumber = resultSet.getInt(Flat.numberField);
+                int blockId = resultSet.getInt(Flat.blockIdField);
+
+                List<Person> persons = new ArrayList<>();
+                List<Bill> bills = new ArrayList<>();
+
+                Flat newFlat=new Flat(persons, bills,flatNumber,flatId,blockId);
+                list.add(newFlat);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static List<Employee> getAllEmployeesData()
     {

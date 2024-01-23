@@ -67,5 +67,19 @@ public class BaseController {
 
     }
 
+    public void onMieszkaniaButton(ActionEvent actionEvent)
+    {
+        System.out.println("Pressed mieszkania Button");
+        this.switchToScene(GSFAevnt(actionEvent),"mieszkania");
+
+    }
+
+    public void onRachunkiButton(ActionEvent actionEvent)
+    {
+        System.out.println("Pressed rachunki Button");
+        this.switchToScene(GSFAevnt(actionEvent),"rachunki");
+
+    }
+
 
 }

@@ -5,16 +5,19 @@ import java.util.List;
 public class Block {
     //fields:
     public final static String tableName="bloki";
+    public final static String idField="id";
     public final static String numberField="numer";
     public final static String occupantsNumberField="liczbaMieszkancow";
     public final static String averageAgeField="sredniWiek";
 
     public List<Flat> flatList;
+    public int id;
     public int number;
     public int occupantsNumber;
     public double averageAge;
 
-    public Block(List<Flat> flatList, int number, int occupantsNumber, double averageAge) {
+    public Block(int id, List<Flat> flatList, int number, int occupantsNumber, double averageAge) {
+        this.id=id;
         this.flatList = flatList;
         this.number = number;
         this.occupantsNumber = occupantsNumber;
@@ -51,5 +54,13 @@ public class Block {
 
     public void setAverageAge(double averageAge) {
         this.averageAge = averageAge;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

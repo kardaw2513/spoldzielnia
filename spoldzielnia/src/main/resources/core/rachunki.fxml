@@ -7,32 +7,32 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="926.0" prefWidth="1222.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MieszkancyController">
+<AnchorPane prefHeight="926.0" prefWidth="1222.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RachunkiController">
     <children>
         <Button fx:id="pracownicyButton" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#onPracownicyButton" prefHeight="37.0" prefWidth="79.0" text="Pracownicy" />
         <Button fx:id="mieszkancyButton" layoutX="104.0" layoutY="18.0" mnemonicParsing="false" onAction="#onMieszkancyButton" prefHeight="37.0" prefWidth="79.0" text="Mieszkańcy" />
         <Button fx:id="GBDButton" layoutX="193.0" layoutY="18.0" mnemonicParsing="false" onAction="#onGBDButton" prefHeight="37.0" prefWidth="79.0" text="Bloki" />
         <Button fx:id="mieszkaniaButton" layoutX="282.0" layoutY="18.0" mnemonicParsing="false" onAction="#onMieszkaniaButton" prefHeight="37.0" prefWidth="79.0" text="Mieszkania" />
         <Button fx:id="rachunkiButton" layoutX="369.0" layoutY="18.0" mnemonicParsing="false" onAction="#onRachunkiButton" prefHeight="37.0" prefWidth="79.0" text="Rachunki" />
-        <TableView fx:id="mieszkancyTableView" layoutX="569.0" layoutY="74.0" prefHeight="836.0" prefWidth="639.0" tableMenuButtonVisible="true">
+        <TableView fx:id="rachunkiTableView" layoutX="569.0" layoutY="74.0" prefHeight="836.0" prefWidth="639.0" tableMenuButtonVisible="true">
             <columns>
-                <TableColumn fx:id="id" prefWidth="49.0" text="id" />
-                <TableColumn fx:id="imie" prefWidth="100.0" text="imie" />
-                <TableColumn fx:id="nazwisko" minWidth="9.0" prefWidth="89.0" text="nazwisko" />
-                <TableColumn fx:id="plec" minWidth="2.0" prefWidth="108.0" text="plec" />
-                <TableColumn fx:id="wiek" minWidth="0.0" prefWidth="77.0" text="wiek" />
-            <TableColumn fx:id="numerMieszkania" prefWidth="109.0" text="numer mieszkania" />
-            <TableColumn fx:id="idMieszkania" prefWidth="94.0" text="id mieszkania" />
+                <TableColumn fx:id="id" prefWidth="50.0" text="id" />
+                <TableColumn fx:id="idMieszkania" prefWidth="86.0" text="id mieszkania" />
+                <TableColumn fx:id="numerMieszkania" prefWidth="117.0" text="numer mieszkania" />
+                <TableColumn fx:id="oplacony" prefWidth="76.0" text="opłacony" />
+                <TableColumn fx:id="woda" prefWidth="102.0" text="woda" />
+            <TableColumn fx:id="gaz" prefWidth="95.0" text="gaz" />
+            <TableColumn fx:id="prad" prefWidth="101.0" text="prąd" />
             </columns>
         </TableView>
-        <AnchorPane layoutX="14.0" layoutY="93.0" prefHeight="215.0" prefWidth="520.0">
+        <AnchorPane layoutX="14.0" layoutY="93.0" prefHeight="218.0" prefWidth="520.0">
             <children>
                 <VBox prefHeight="53.0" prefWidth="520.0">
                     <children>
                         <HBox prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Imie" textAlignment="CENTER" />
-                                <TextField fx:id="imieText" prefHeight="25.0" prefWidth="240.0">
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Id Mieszkania" textAlignment="CENTER" />
+                                <TextField fx:id="idMieszkaniaText" prefHeight="25.0" prefWidth="240.0">
                                     <HBox.margin>
                                         <Insets left="20.0" />
                                     </HBox.margin>
@@ -47,8 +47,8 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="10.0" prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Nazwisko" textAlignment="CENTER" />
-                                <TextField fx:id="nazwiskoText" prefHeight="25.0" prefWidth="240.0">
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Numer Mieszkania" textAlignment="CENTER" />
+                                <TextField fx:id="numerMieszkaniaText" prefHeight="25.0" prefWidth="240.0">
                                     <HBox.margin>
                                         <Insets left="20.0" />
                                     </HBox.margin>
@@ -60,12 +60,12 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="35.0" prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Płeć" textAlignment="CENTER" />
-                                <TextField fx:id="plecText" prefHeight="25.0" prefWidth="240.0">
-                                    <HBox.margin>
-                                        <Insets left="20.0" />
-                                    </HBox.margin>
-                                </TextField>
+                                <Label alignment="CENTER" prefHeight="17.0" prefWidth="259.0" text="Opłacony" textAlignment="CENTER" />
+                        <CheckBox fx:id="oplaconySelection" mnemonicParsing="false" prefHeight="17.0" prefWidth="133.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </CheckBox>
                             </children>
                             <opaqueInsets>
                                 <Insets />
@@ -73,8 +73,8 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="60.0" prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Wiek" textAlignment="CENTER" />
-                                <TextField fx:id="wiekText" prefHeight="25.0" prefWidth="240.0">
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Woda" textAlignment="CENTER" />
+                                <TextField fx:id="wodaText" prefHeight="25.0" prefWidth="240.0">
                                     <HBox.margin>
                                         <Insets left="20.0" />
                                     </HBox.margin>
@@ -84,10 +84,10 @@
                                 <Insets />
                             </opaqueInsets>
                         </HBox>
-                  <HBox layoutX="10.0" layoutY="85.0" prefHeight="0.0" prefWidth="520.0">
+                  <HBox layoutX="10.0" layoutY="77.0" prefHeight="0.0" prefWidth="520.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Numer Mieszkania" textAlignment="CENTER" />
-                        <TextField fx:id="numerMieszkaniaText" prefHeight="25.0" prefWidth="240.0">
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Gaz" textAlignment="CENTER" />
+                        <TextField fx:id="gazText" prefHeight="25.0" prefWidth="240.0">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -97,10 +97,10 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="110.0" prefHeight="0.0" prefWidth="520.0">
+                  <HBox layoutX="10.0" layoutY="102.0" prefHeight="0.0" prefWidth="520.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Id Mieszkania" textAlignment="CENTER" />
-                        <TextField fx:id="idMieszkaniaText" prefHeight="25.0" prefWidth="240.0">
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Prąd" textAlignment="CENTER" />
+                        <TextField fx:id="pradText" prefHeight="25.0" prefWidth="240.0">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -115,13 +115,13 @@
                 <Button fx:id="dodajButton" layoutX="398.0" layoutY="167.0" mnemonicParsing="false" onAction="#onDodaj" prefHeight="37.0" prefWidth="122.0" text="Dodaj" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="14.0" layoutY="394.0" prefHeight="256.0" prefWidth="520.0">
+        <AnchorPane layoutX="14.0" layoutY="394.0" prefHeight="276.0" prefWidth="520.0">
             <children>
                 <VBox prefHeight="53.0" prefWidth="520.0">
                     <children>
                         <HBox layoutX="10.0" layoutY="10.0" prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Id" textAlignment="CENTER" />
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Id Rachunku" textAlignment="CENTER" />
                                 <TextField fx:id="idTextM" prefHeight="25.0" prefWidth="240.0">
                                     <HBox.margin>
                                         <Insets left="20.0" />
@@ -134,8 +134,8 @@
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Imie" textAlignment="CENTER" />
-                                <TextField fx:id="imieTextM" prefHeight="25.0" prefWidth="240.0">
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Id Mieszkania" textAlignment="CENTER" />
+                                <TextField fx:id="idMieszkaniaTextM" prefHeight="25.0" prefWidth="240.0">
                                     <HBox.margin>
                                         <Insets left="20.0" />
                                     </HBox.margin>
@@ -150,8 +150,8 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="10.0" prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Nazwisko" textAlignment="CENTER" />
-                                <TextField fx:id="nazwiskoTextM" prefHeight="25.0" prefWidth="240.0">
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Numer Mieszkania" textAlignment="CENTER" />
+                                <TextField fx:id="numerMieszkaniaTextM" prefHeight="25.0" prefWidth="240.0">
                                     <HBox.margin>
                                         <Insets left="20.0" />
                                     </HBox.margin>
@@ -163,12 +163,12 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="35.0" prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Płeć" textAlignment="CENTER" />
-                                <TextField fx:id="plecTextM" prefHeight="25.0" prefWidth="240.0">
-                                    <HBox.margin>
-                                        <Insets left="20.0" />
-                                    </HBox.margin>
-                                </TextField>
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Opłacony" textAlignment="CENTER" />
+                        <CheckBox fx:id="oplaconySelectionM" mnemonicParsing="false" prefHeight="17.0" prefWidth="133.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </CheckBox>
                             </children>
                             <opaqueInsets>
                                 <Insets />
@@ -176,8 +176,8 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="60.0" prefHeight="0.0" prefWidth="520.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Wiek" textAlignment="CENTER" />
-                                <TextField fx:id="wiekTextM" prefHeight="25.0" prefWidth="240.0">
+                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Woda" textAlignment="CENTER" />
+                                <TextField fx:id="wodaTextM" prefHeight="25.0" prefWidth="240.0">
                                     <HBox.margin>
                                         <Insets left="20.0" />
                                     </HBox.margin>
@@ -189,8 +189,8 @@
                         </HBox>
                   <HBox layoutX="10.0" layoutY="110.0" prefHeight="0.0" prefWidth="520.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Numer Mieszkania" textAlignment="CENTER" />
-                        <TextField fx:id="numerMieszkaniaTextM" prefHeight="25.0" prefWidth="240.0">
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Gaz" textAlignment="CENTER" />
+                        <TextField fx:id="gazTextM" prefHeight="25.0" prefWidth="240.0">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -202,8 +202,8 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="135.0" prefHeight="0.0" prefWidth="520.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Id Mieszkania" textAlignment="CENTER" />
-                        <TextField fx:id="idMieszkaniaTextM" prefHeight="25.0" prefWidth="240.0">
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="260.0" text="Prąd" textAlignment="CENTER" />
+                        <TextField fx:id="pradTextM" prefHeight="25.0" prefWidth="240.0">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -215,8 +215,8 @@
                   </HBox>
                     </children>
                 </VBox>
-                <Button fx:id="modyfikujButton" layoutX="398.0" layoutY="205.0" mnemonicParsing="false" onAction="#onModyfikuj" prefHeight="37.0" prefWidth="122.0" text="Modyfikuj" />
-                <Button fx:id="usunButton" layoutX="276.0" layoutY="205.0" mnemonicParsing="false" onAction="#onUsun" prefHeight="37.0" prefWidth="122.0" text="Usuń" />
+                <Button fx:id="modyfikujButton" layoutX="398.0" layoutY="225.0" mnemonicParsing="false" onAction="#onModyfikuj" prefHeight="37.0" prefWidth="122.0" text="Modyfikuj" />
+                <Button fx:id="usunButton" layoutX="276.0" layoutY="225.0" mnemonicParsing="false" onAction="#onUsun" prefHeight="37.0" prefWidth="122.0" text="Usuń" />
             </children>
         </AnchorPane>
         <Button fx:id="odswiezButton" layoutX="421.0" layoutY="873.0" mnemonicParsing="false" onAction="#onOdswiez" prefHeight="37.0" prefWidth="122.0" text="Odśwież" />
